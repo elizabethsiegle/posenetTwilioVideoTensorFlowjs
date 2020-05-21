@@ -33,10 +33,41 @@
     function drawKeypoints(keypoints) {
       for (let i = 0; i < keypoints.length; i++) {
         const keypoint = keypoints[i];
+        console.log(`keypoint in drawkeypoints ${keypoint}`);
         const { y, x } = keypoint.position;
         //webcamKeypoints.push(keypoint);
-        drawPoint2(y, x, 3);
+        drawPoint(y, x, 3);
       }
+    }
+    function drawSegment(
+      pair1,
+      pair2,
+      color,
+      scale
+    ) {
+      ctx.beginPath();
+      ctx.moveTo(pair1.x * scale, pair1.y * scale);
+      ctx.lineTo(pair2.x * scale, pair2.y * scale);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = color;
+      ctx.stroke();
+    }
+
+    function drawSkeleton(keypoints) {
+        const color = "#FFFFFF";
+        const adjacentKeyPoints = posenet.getAdjacentKeyPoints(
+          keypoints,
+          minConfidence
+        );
+
+      adjacentKeyPoints.forEach((keypoint) => {
+        drawSegment(
+          keypoint[0].position,
+          keypoint[1].position,
+          color,
+          1,
+        );
+      });
     }
     function drawPoint(y, x, r) {
       ctx.beginPath();
@@ -44,20 +75,7 @@
       ctx.fillStyle = "#FFFFFF";
       ctx.fill();
     }
-    // draw the skeletons
-    function drawSkeleton2() {
-        // Loop through all the skeletons detected
-        for (let i = 0; i < poses.length; i++) {
-            let skeleton = poses[i].skeleton;
-            // For every skeleton, loop through all body connections
-            for (let j = 0; j < skeleton.length; j++) {
-                let partA = skeleton[j][0];
-                let partB = skeleton[j][1];
-                stroke(255, 0, 0);
-                line(partA.position.x, partA.position.y, partB.position.x, partB.position.y);
-            }
-        }
-    }
+  
     const estimateMultiplePoses = () => {
         posenet
           .load()
@@ -171,9 +189,9 @@ function estimatePoses(capture) {
         }
       }
     //   // next animation loop, call posenet again to estimate poses
-    //   requestAnimationFrame(function() {
-    //     estimatePoses(capture);
-    //   });
+      requestAnimationFrame(function() {
+        estimatePoses(capture);
+      });
     });
 }
 
