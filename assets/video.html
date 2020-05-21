@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Twilio Video Demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script>
 
 </head>
   <body>
@@ -12,6 +14,7 @@
         
       <video id="video" autoplay muted="true" width="320"
           height="240"></video>
+        <canvas id="canvas" style="position: absolute; top: 0; left: 0; z-index: 1;"></canvas>
       <button id="button-join">Join Room</button>
       <button id="button-leave" disabled>Leave Room</button>
     </div>
