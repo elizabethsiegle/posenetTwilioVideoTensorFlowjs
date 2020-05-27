@@ -7,19 +7,26 @@
     <title>Twilio Video Demo</title>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script>
-
 </head>
   <body>
     <div id="room-controls">
-        
-      <video id="video" autoplay muted="true" width="320"
-          height="240"></video>
-        <canvas id="canvas" style="position: absolute; top: 0; left: 0; z-index: 1;"></canvas>
-      <button id="button-join">Join Room</button>
-      <button id="button-leave" disabled>Leave Room</button>
+      <style>
+        #canvas {
+          position: absolute;
+          top:0;
+          left:0;
+          z-index: 1;
+        }
+      </style>
+      <canvas id="canvas"></canvas>
+      <video id="video" autoplay muted="true" position="relative" width="300" height="240"></video>
+      <div style="text-align:center;">
+        <button id="button-join">Join Room</button>
+        <button id="button-leave" disabled>Leave Room</button>
+      </div>
     </div>
   </body>
   <script src="//media.twiliocdn.com/sdk/js/video/releases/2.3.0/twilio-video.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="video.js?version=1.00"></script>
+  <script src="video.js"></script>
 </html>
