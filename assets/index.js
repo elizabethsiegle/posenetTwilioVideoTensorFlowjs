@@ -76,7 +76,7 @@
     ctx.fill();
   }
 
-  const estimateMultiplePoses = () => {
+  function estimateMultiplePoses() {
     posenet
       .load()
       .then(function (net) {
@@ -101,6 +101,8 @@
         });
       });
   };
+
+
 
   // buttons
   const joinRoomButton = document.getElementById("button-join");
@@ -167,27 +169,4 @@ const trackSubscribed = (div, track) => {
 const trackUnsubscribed = (track) => {
   track.detach().forEach(element => element.remove());
 }
-function estimatePoses(capture) {
-  // call posenet to estimate a pose
-  net
-    .estimateMultiplePoses(capture.elt, imageScaleFactor, flipHorizontal, 16, 1)
-    .then(function (poses) {
-      if (poses.length > 0) {
-        const pose = poses[0];
 
-        if (pose.score > 0.1) {
-          const leftHand = pose.keypoints[posenet.partIds["leftWrist"]];
-          if (leftHand.score > 0.1) {
-            leftHandX = leftHand.position.x;
-            leftHandY = leftHand.position.y;
-          }
-
-          const rightHand = pose.keypoints[posenet.partIds["rightWrist"]];
-          if (rightHand.score > 0.1) {
-            rightHandX = rightHand.position.x;
-            rightHandY = rightHand.position.y;
-          }
-        }
-      }
-    });
-}
